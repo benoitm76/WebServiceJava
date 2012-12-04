@@ -59,10 +59,52 @@ public class WebServicePersonne {
     @WebMethod(operationName = "GetAllPersonnes")
     public List<InfoPersonne> GetAllPersonnes()
     {
+        Query query = em.createNamedQuery("TPersonne.findAll");        
+        return RemplirInfoPersonne(query.getResultList());
+    }
+    
+    @WebMethod(operationName = "RecherchePersonnes")
+    public List<InfoPersonne> RecherchePersonnes(InfoPersonne ip, boolean externe)
+    {
+        List<InfoPersonne> ListIP = new ArrayList<InfoPersonne>();        
+        String squery = "SELECT t FROM TPersonne t";        
+        String where = "";
+        List<Object[]> params = new ArrayList<Object[]>();
+        if(!ip.getNom().equals(""))
+        {
+            if(!where.equals(""))
+            {
+                where += " AND";
+            }
+            where += " t.nom = :nom";            
+            params.add(new Object[]{"nom", ip.getNom()});
+        }
+        if(!ip.getPrenom().equals(""))
+        {
+            if(!where.equals(""))
+            {
+                where += " AND";
+            }
+            where += " t.prenom = :prenom";
+            params.add(new Object[]{"prenom", ip.getPrenom()});
+        }
+        if(!where.equals(""))
+        {
+            squery += " WHERE" + where;
+        }
+        Query query = em.createQuery(squery);
+        for(Object[] o : params)
+        {
+            query.setParameter((String)o[0], o[1]);
+        }
+        return RemplirInfoPersonne(query.getResultList());
+    }
+    
+    public List<InfoPersonne> RemplirInfoPersonne(List<TPersonne> list)
+    {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         List<InfoPersonne> ListIP = new ArrayList<InfoPersonne>();
-        Query query = em.createNamedQuery("TPersonne.findAll");
-        for (TPersonne p : (List<TPersonne>)query.getResultList())
+        for (TPersonne p : list)
         {
             InfoPersonne ip = new InfoPersonne();
             ip.setNom(p.getNom());
