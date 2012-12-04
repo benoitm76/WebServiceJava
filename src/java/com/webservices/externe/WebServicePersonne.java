@@ -88,6 +88,24 @@ public class WebServicePersonne {
             where += " t.prenom = :prenom";
             params.add(new Object[]{"prenom", ip.getPrenom()});
         }
+        if(ip.isSexe())
+        {
+            if(!where.equals(""))
+            {
+                where += " AND";
+            }
+            where += " t.sexe = :sexe";
+            params.add(new Object[]{"sexe", '1'});
+        }
+        else
+        {
+            if(!where.equals(""))
+            {
+                where += " AND";
+            }
+            where += " t.sexe = :sexe";
+            params.add(new Object[]{"sexe", '0'});
+        }
         if(!where.equals(""))
         {
             squery += " WHERE" + where;

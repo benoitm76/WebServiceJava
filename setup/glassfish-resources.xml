@@ -7,7 +7,7 @@
         <property name="databaseName" value="jdad"/>
         <property name="User" value="ministeretravail"/>
         <property name="Password" value="projetdad"/>
-        <property name="URL" value="jdbc:oracle:thin:@172.16.254.185:1521:jdad"/>
+        <property name="URL" value="jdbc:oracle:thin:@benguigcentos:1521:jdad"/>
         <property name="driverClass" value="oracle.jdbc.OracleDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="OracleDB" object-type="user" pool-name="oracle-thin_jdad_ministeretravailPool"/>

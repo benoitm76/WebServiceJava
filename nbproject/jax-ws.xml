@@ -4,6 +4,9 @@
     <service name="WebServicePersonne">
       <implementation-class>com.webservices.externe.WebServicePersonne</implementation-class>
     </service>
+    <service name="Utilisateurs">
+      <implementation-class>com.webservices.interne.Utilisateurs</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
