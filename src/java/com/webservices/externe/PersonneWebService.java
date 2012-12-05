@@ -25,15 +25,15 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Benoit
+ * @author Benoît
  */
-@WebService(serviceName = "WebServicePersonne")
+@WebService(serviceName = "PersonneWebService")
 @Stateless()
-public class WebServicePersonne {
+public class PersonneWebService {
     
     @PersistenceContext(unitName = "WebServiceJavaPU")
     private EntityManager em;
-    
+
     @WebMethod(operationName = "hello")
     public String hello() {
         return "Cool";
@@ -81,8 +81,8 @@ public class WebServicePersonne {
             {
                 where += " AND";
             }
-            where += " LOWER(t.nom) = LOWER(:nom)";            
-            params.add(new Object[]{"nom", ip.getNom()});
+            where += " LOWER(t.nom) LIKE :nom";            
+            params.add(new Object[]{"nom", "%" + ip.getNom().toLowerCase() + "%"});
         }
         
         /*
@@ -97,8 +97,8 @@ public class WebServicePersonne {
             {
                 where += " AND";
             }
-            where += " LOWER(t.prenom) = LOWER(:prenom)";
-            params.add(new Object[]{"prenom", ip.getPrenom()});
+            where += " LOWER(t.prenom) LIKE :prenom";
+            params.add(new Object[]{"prenom", "%" + ip.getPrenom().toLowerCase() + "%"});
         }
         
         /*
@@ -117,7 +117,7 @@ public class WebServicePersonne {
                 }
                 where += " t.dateDeNaissance = '" + date + "'";
             } catch (ParseException ex) {
-                Logger.getLogger(WebServicePersonne.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PersonneWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -158,6 +158,7 @@ public class WebServicePersonne {
         return RemplirInfoPersonne(query.getResultList());
     }
     
+    @WebMethod(exclude = true)
     public List<InfoPersonne> RemplirInfoPersonne(List<TPersonne> list)
     {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -165,6 +166,7 @@ public class WebServicePersonne {
         for (TPersonne p : list)
         {
             InfoPersonne ip = new InfoPersonne();
+            ip.setID(p.getIdPersonne());
             ip.setNom(p.getNom());
             ip.setPrenom(p.getPrenom());
             if(p.getDateDeNaissance() != null) {

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="WebServicePersonne">
-      <implementation-class>com.webservices.externe.WebServicePersonne</implementation-class>
-    </service>
     <service name="Utilisateurs">
       <implementation-class>com.webservices.interne.Utilisateurs</implementation-class>
     </service>
-    <service name="WSPersonne">
-      <implementation-class>com.webservices.interne.WSPersonne</implementation-class>
+    <service name="PersonneWebService">
+      <implementation-class>com.webservices.externe.PersonneWebService</implementation-class>
     </service>
   </services>
   <clients/>
