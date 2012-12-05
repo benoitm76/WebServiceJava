@@ -34,15 +34,6 @@ public class WebServicePersonne {
     @PersistenceContext(unitName = "WebServiceJavaPU")
     private EntityManager em;
     
-    @WebMethod(operationName = "test")
-    public InfoPersonne test(String nom, String prenom, String dateNaissance) {
-        InfoPersonne ip = new InfoPersonne();
-        ip.setNom(nom);
-        ip.setPrenom(prenom);
-        ip.setDateNaissance(dateNaissance);
-        return ip;
-    }
-    
     @WebMethod(operationName = "hello")
     public String hello() {
         return "Cool";
@@ -77,6 +68,13 @@ public class WebServicePersonne {
         String squery = "SELECT t FROM TPersonne t";        
         String where = "";
         List<Object[]> params = new ArrayList<Object[]>();
+        
+        /*
+         * 
+         * Recherche Par Nom
+         * 
+         */
+        
         if(!ip.getNom().equals(""))
         {
             if(!where.equals(""))
@@ -86,6 +84,13 @@ public class WebServicePersonne {
             where += " LOWER(t.nom) = LOWER(:nom)";            
             params.add(new Object[]{"nom", ip.getNom()});
         }
+        
+        /*
+         * 
+         * Recherche Par Prénom
+         * 
+         */
+        
         if(!ip.getPrenom().equals(""))
         {
             if(!where.equals(""))
@@ -95,11 +100,16 @@ public class WebServicePersonne {
             where += " LOWER(t.prenom) = LOWER(:prenom)";
             params.add(new Object[]{"prenom", ip.getPrenom()});
         }
+        
+        /*
+         * 
+         * Recherche Par Date de Naissance
+         * 
+         */
+        
         if(!ip.getDateNaissance().equals(""))
-        {
-            //where += " t.dateDeNaissance = {d':dateDeNaissance'}";            
+        {            
             try {
-                //params.add(new Object[]{"dateDeNaissance", dateFormat.format(dateParse.parse(ip.getDateNaissance()))});
                 String date = dateFormat.format(dateParse.parse(ip.getDateNaissance()));
                 if(!where.equals(""))
                 {
@@ -110,6 +120,13 @@ public class WebServicePersonne {
                 Logger.getLogger(WebServicePersonne.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        /*
+         * 
+         * Recherche Par Sexe
+         * 
+         */
+        
         if(ip.isSexe())
         {
             if(!where.equals(""))
@@ -128,6 +145,7 @@ public class WebServicePersonne {
             where += " t.sexe = :sexe";
             params.add(new Object[]{"sexe", '0'});
         }
+        
         if(!where.equals(""))
         {
             squery += " WHERE" + where;
