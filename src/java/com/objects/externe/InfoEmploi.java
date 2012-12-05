@@ -12,7 +12,6 @@ public class InfoEmploi {
     private int ID;
     private String Nom_emploi;  
     private InfoType Type;      
-    private InfoPersonne Personne;
 
     public int getID() {
         return ID;
@@ -36,14 +35,5 @@ public class InfoEmploi {
 
     public void setType(InfoType Type) {
         this.Type = Type;
-    }
-
-    public InfoPersonne getPersonne() {
-        return Personne;
-    }
-
-    public void setPersonne(InfoPersonne Personne) {
-        this.Personne = Personne;
-    }
-    
+    }    
 }

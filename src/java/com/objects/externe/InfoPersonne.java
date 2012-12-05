@@ -4,6 +4,8 @@
  */
 package com.objects.externe;
 
+import java.util.List;
+
 /**
  *
  * @author Benoit
@@ -15,6 +17,7 @@ public class InfoPersonne {
     private String Prenom;
     private boolean Sexe;
     private String DateNaissance;
+    private List<InfoEmploi> Emplois;    
     private InfoFinanceur Financeur;
     private InfoConseiller Conseiller;
     
@@ -57,6 +60,31 @@ public class InfoPersonne {
     public void setSexe(boolean Sexe) {
         this.Sexe = Sexe;
     }
+    
+    public List<InfoEmploi> getEmplois() {
+        return Emplois;
+    }
+
+    public void setEmplois(List<InfoEmploi> Emplois) {
+        this.Emplois = Emplois;
+    }
+
+    public InfoFinanceur getFinanceur() {
+        return Financeur;
+    }
+
+    public void setFinanceur(InfoFinanceur Financeur) {
+        this.Financeur = Financeur;
+    }
+
+    public InfoConseiller getConseiller() {
+        return Conseiller;
+    }
+
+    public void setConseiller(InfoConseiller Conseiller) {
+        this.Conseiller = Conseiller;
+    }
+    
     public InfoPersonne()
     {        
     }   
