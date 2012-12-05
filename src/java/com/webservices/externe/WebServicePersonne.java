@@ -65,8 +65,7 @@ public class WebServicePersonne {
     
     @WebMethod(operationName = "RecherchePersonnes")
     public List<InfoPersonne> RecherchePersonnes(InfoPersonne ip, boolean externe)
-    {
-        List<InfoPersonne> ListIP = new ArrayList<InfoPersonne>();        
+    {      
         String squery = "SELECT t FROM TPersonne t";        
         String where = "";
         List<Object[]> params = new ArrayList<Object[]>();

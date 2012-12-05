@@ -15,6 +15,8 @@ public class InfoPersonne {
     private String Prenom;
     private boolean Sexe;
     private String DateNaissance;
+    private InfoFinanceur Financeur;
+    private InfoConseiller Conseiller;
     
     public int getID() {
         return ID;
@@ -55,7 +57,6 @@ public class InfoPersonne {
     public void setSexe(boolean Sexe) {
         this.Sexe = Sexe;
     }
-    
     public InfoPersonne()
     {        
     }   
