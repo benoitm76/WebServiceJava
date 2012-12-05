@@ -11,6 +11,7 @@ package com.objects.externe;
 public class InfoConseiller {
     private int ID;
     private String Nom;
+    private String Prenom;
 
     public int getID() {
         return ID;
@@ -35,5 +36,13 @@ public class InfoConseiller {
     public void setPrenom(String Prenom) {
         this.Prenom = Prenom;
     }
-    private String Prenom;
+
+    public InfoConseiller() {
+    }
+
+    public InfoConseiller(int ID, String Nom, String Prenom) {
+        this.ID = ID;
+        this.Nom = Nom;
+        this.Prenom = Prenom;
+    }   
 }

@@ -4,12 +4,18 @@
  */
 package com.webservices.externe;
 
+import com.jpa.TEmploi;
 import com.jpa.TPersonne;
+import com.objects.externe.InfoEmploi;
 import com.objects.externe.InfoPersonne;
+import com.objects.externe.InfoType;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -66,6 +72,8 @@ public class WebServicePersonne {
     @WebMethod(operationName = "RecherchePersonnes")
     public List<InfoPersonne> RecherchePersonnes(InfoPersonne ip, boolean externe)
     {      
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateParse = new SimpleDateFormat("dd/MM/yyyy");
         String squery = "SELECT t FROM TPersonne t";        
         String where = "";
         List<Object[]> params = new ArrayList<Object[]>();
@@ -75,7 +83,7 @@ public class WebServicePersonne {
             {
                 where += " AND";
             }
-            where += " t.nom = :nom";            
+            where += " LOWER(t.nom) = LOWER(:nom)";            
             params.add(new Object[]{"nom", ip.getNom()});
         }
         if(!ip.getPrenom().equals(""))
@@ -84,8 +92,23 @@ public class WebServicePersonne {
             {
                 where += " AND";
             }
-            where += " t.prenom = :prenom";
+            where += " LOWER(t.prenom) = LOWER(:prenom)";
             params.add(new Object[]{"prenom", ip.getPrenom()});
+        }
+        if(!ip.getDateNaissance().equals(""))
+        {
+            //where += " t.dateDeNaissance = {d':dateDeNaissance'}";            
+            try {
+                //params.add(new Object[]{"dateDeNaissance", dateFormat.format(dateParse.parse(ip.getDateNaissance()))});
+                String date = dateFormat.format(dateParse.parse(ip.getDateNaissance()));
+                if(!where.equals(""))
+                {
+                    where += " AND";
+                }
+                where += " t.dateDeNaissance = '" + date + "'";
+            } catch (ParseException ex) {
+                Logger.getLogger(WebServicePersonne.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(ip.isSexe())
         {
@@ -134,7 +157,12 @@ public class WebServicePersonne {
             }
             else {
                 ip.setSexe(true);
-            }            
+            }   
+            ip.setEmplois(new ArrayList<InfoEmploi>());
+            for (TEmploi e : p.getTEmploiList())
+            {                            
+                ip.getEmplois().add(new InfoEmploi(e.getIdMetier(), e.getIntituleMetier(), new InfoType(e.getIdTypeEmploi().getIdTypeEmploi(), e.getIdTypeEmploi().getTypeEmploi()), dateFormat.format(e.getDtDebut()), dateFormat.format(e.getDtFin())));
+            }
             ListIP.add(ip);
         }
         return ListIP;

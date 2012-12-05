@@ -5,6 +5,7 @@
 package com.jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,6 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TEmploi.findByIntituleMetier", query = "SELECT t FROM TEmploi t WHERE t.intituleMetier = :intituleMetier"),
     @NamedQuery(name = "TEmploi.findByIdMetier", query = "SELECT t FROM TEmploi t WHERE t.idMetier = :idMetier")})
 public class TEmploi implements Serializable {
+    @Column(name = "DT_FIN")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtFin;
+    @Column(name = "DT_DEBUT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtDebut;
     private static final long serialVersionUID = 1L;
     @Size(max = 100)
     @Column(name = "INTITULE_METIER")
@@ -120,6 +129,22 @@ public class TEmploi implements Serializable {
     @Override
     public String toString() {
         return "org.jpa.TEmploi[ idMetier=" + idMetier + " ]";
+    }
+
+    public Date getDtFin() {
+        return dtFin;
+    }
+
+    public void setDtFin(Date dtFin) {
+        this.dtFin = dtFin;
+    }
+
+    public Date getDtDebut() {
+        return dtDebut;
+    }
+
+    public void setDtDebut(Date dtDebut) {
+        this.dtDebut = dtDebut;
     }
     
 }

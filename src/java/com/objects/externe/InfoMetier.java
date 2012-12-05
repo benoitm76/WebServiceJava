@@ -36,4 +36,13 @@ public class InfoMetier {
     public void setNom(String Nom) {
         this.Nom = Nom;
     }
+
+    public InfoMetier() {
+    }
+
+    public InfoMetier(int ID, InfoType Type, String Nom) {
+        this.ID = ID;
+        this.Type = Type;
+        this.Nom = Nom;
+    }    
 }

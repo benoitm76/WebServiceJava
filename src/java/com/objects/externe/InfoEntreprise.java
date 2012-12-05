@@ -27,5 +27,13 @@ public class InfoEntreprise {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public InfoEntreprise() {
+    }
+
+    public InfoEntreprise(int ID, String nom) {
+        this.ID = ID;
+        this.nom = nom;
+    }
     
 }

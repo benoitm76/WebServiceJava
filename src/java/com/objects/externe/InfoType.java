@@ -27,4 +27,12 @@ public class InfoType {
     public void setIntitule(String intitule) {
         this.intitule = intitule;
     }
+
+    public InfoType() {
+    }
+
+    public InfoType(int ID, String intitule) {
+        this.ID = ID;
+        this.intitule = intitule;
+    }
 }

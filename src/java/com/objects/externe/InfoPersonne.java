@@ -4,6 +4,7 @@
  */
 package com.objects.externe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,4 +89,15 @@ public class InfoPersonne {
     public InfoPersonne()
     {        
     }   
+    
+    public InfoPersonne(int ID, String Nom, String Prenom, boolean Sexe, String DateNaissance, List<InfoEmploi> Emplois, InfoFinanceur Financeur, InfoConseiller Conseiller) {
+        this.ID = ID;
+        this.Nom = Nom;
+        this.Prenom = Prenom;
+        this.Sexe = Sexe;
+        this.DateNaissance = DateNaissance;
+        this.Emplois = Emplois;
+        this.Financeur = Financeur;
+        this.Conseiller = Conseiller;
+    }
 }

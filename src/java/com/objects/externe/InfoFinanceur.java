@@ -27,4 +27,12 @@ public class InfoFinanceur {
     public void setNom(String Nom) {
         this.Nom = Nom;
     }
+
+    public InfoFinanceur() {
+    }
+
+    public InfoFinanceur(int ID, String Nom) {
+        this.ID = ID;
+        this.Nom = Nom;
+    }
 }
