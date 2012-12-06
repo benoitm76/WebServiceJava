@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:29060/WebServiceNet.svc?singleWsdl" uri="src/conf/xml-resources/web-service-references/WebServiceNet/wsdl/localhost_29060/WebServiceNet.svc.singlewsdl.wsdl"/>
+    <system systemId="http://benguigwin8:55111/WebServiceNet.svc?singleWsdl" uri="src/conf/xml-resources/web-service-references/WebServiceNet/wsdl/benguigwin8_55111/WebServiceNet.svc.singlewsdl.wsdl"/>
+    <system systemId="http://172.16.255.146:55111/WebServiceNet.svc?singleWsdl" uri="src/conf/xml-resources/web-service-references/WebServiceNet/wsdl/172.16.255.146_55111/WebServiceNet.svc.singlewsdl.wsdl"/>
+</catalog>

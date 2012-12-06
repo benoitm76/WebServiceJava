@@ -17,7 +17,7 @@
             <classpath path="${j2ee.platform.wsgen.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-compile" depends="wsgen-Utilisateurs, wsgen-PersonneWebService">
+    <target name="wsgen-compile" depends="wsgen-Utilisateurs, wsgen-PersonneWebService, wsgen-AndroidWebService">
         <ejbjarproject2:javac srcdir="${build.generated.sources.dir}/jax-ws" classpath="${j2ee.platform.wsgen.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>
     <target name="wsgen-Utilisateurs" depends="wsgen-init, -do-compile">
@@ -30,9 +30,41 @@
             <classpath path="${java.home}/../lib/tools.jar:${classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
+    <target name="wsgen-AndroidWebService" depends="wsgen-init, -do-compile">
+        <wsgen destdir="${build.generated.sources.dir}/jax-ws" sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" verbose="true" xendorsed="true" keep="false" genwsdl="true" sei="com.webservices.externe.AndroidWebService">
+            <classpath path="${java.home}/../lib/tools.jar:${classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
                 ===================
             -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-WebServiceNet" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WebServiceNet"/>
+        <property name="wsdl-WebServiceNet" location="${meta.inf}/xml-resources/web-service-references/WebServiceNet/wsdl/172.16.255.146_55111/WebServiceNet.svc.singlewsdl.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebServiceNet" destdir="${build.generated.dir}/jax-wsCache/WebServiceNet" wsdl="${wsdl-WebServiceNet}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://172.16.255.146:55111/WebServiceNet.svc?singleWsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-WebServiceNet}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WebServiceNet"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WebServiceNet">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WebServiceNet" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/WebServiceNet"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/tempuri"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-WebServiceNet"/>
 </project>

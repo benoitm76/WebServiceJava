@@ -7,6 +7,38 @@
     <service name="PersonneWebService">
       <implementation-class>com.webservices.externe.PersonneWebService</implementation-class>
     </service>
+    <service name="AndroidWebService">
+      <implementation-class>com.webservices.externe.AndroidWebService</implementation-class>
+    </service>
   </services>
-  <clients/>
+  <clients>
+    <client name="WebServiceNet">
+      <wsdl-url>http://172.16.255.146:55111/WebServiceNet.svc?singleWsdl</wsdl-url>
+      <local-wsdl-file>172.16.255.146_55111/WebServiceNet.svc.singlewsdl.wsdl</local-wsdl-file>
+      <package-name>org.tempuri</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://172.16.255.146:55111/WebServiceNet.svc?singleWsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
 </jax-ws>
